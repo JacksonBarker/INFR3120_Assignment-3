@@ -5,30 +5,22 @@ let cookieParser = require("cookie-parser");
 let logger = require("morgan");
 
 let app = express();
+// create router and controller
 let indexRouter = require("../routes/index");
 let contactsController = require("../controllers/contacts");
 
 // view engine setup
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "ejs");
-// getting-started.js
+// enable mongoose logging
 const mongoose = require("mongoose");
-// point mongoose to the DB URI
-// mongoose.connect(DB.URI);
 let mongoDB = mongoose.connection;
 mongoDB.on("error", console.error.bind(console, "Connection Error"));
 mongoDB.once("open", () => {
   console.log("Connected with the MongoDB");
 });
+// point mongoose to the DB URI
 mongoose.connect(process.env.DB_URI);
-/* main().catch(err => console.log(err));
-
-async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/BookLib');
-  //await mongoose.connect('mongodb+srv://ahmedsheikh:Test123@cluster0.0f3pz.mongodb.net/');
-
-  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
-}*/
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -39,8 +31,8 @@ app.use(express.static(path.join(__dirname, "../../node_modules")));
 
 app.use("/", indexRouter);
 app.use("/contacts", contactsController);
-// /project --> projectrouter
-// /contactus --> contactus
+// / --> indexRouter
+// /contacts --> contactsController
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

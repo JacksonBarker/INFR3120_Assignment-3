@@ -1,7 +1,6 @@
-//const { Collection, default: mongoose } = require("mongoose");
-
 const mongoose = require("mongoose");
 
+// create model for contacts
 let contactModel = mongoose.Schema(
   {
     first: String,

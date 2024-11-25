@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 let Contact = require("../model/contact.js");
 
+// delete contact from mongodb using object id
 router.post("/delete", async (req, res, next) => {
   try {
     await Contact.findByIdAndDelete(req.body.id);
@@ -16,6 +17,7 @@ router.post("/delete", async (req, res, next) => {
   }
 });
 
+//create new contact with post body values
 router.post("/create", async (req, res, next) => {
   try {
     var { first, last, phone, email } = req.body;
@@ -37,6 +39,7 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
+// edit contact with post body values using object id
 router.post("/edit", async (req, res, next) => {
   try {
     var { id, first, last, phone, email } = req.body;

@@ -2,10 +2,12 @@ var express = require("express");
 var router = express.Router();
 let Contact = require("../model/contact.js");
 
+// home page
 router.get("/", function (req, res, next) {
   res.render("index", { title: "Home" });
 });
 
+// contact list page
 router.get("/list", async (req, res, next) => {
   try {
     const contact_list = await Contact.find();
